@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu>
+    <food id="id_01" veggy="true">
+        <name>Belgian Waffles</name>
+        <price coin="dollar">5.95</price>
+        <description>Two of our famous Belgian Waffles with plenty of real maple syrup</description>
+        <calories>650</calories>
+    </food>
+    <food id="id_02" veggy="false">
+        <name>Strawberry Belgian Waffles</name>
+        <price coin="euro">7.95</price>
+        <description>Light Belgian waffles covered with strawberries and whipped cream</description>
+        <calories>596</calories>
+    </food>
+    <food id="id_03" veggy="true">
+        <name>Berry-Berry Belgian Waffles</name>
+        <price coin="dollar">8.95</price>
+        <description>Belgian waffles covered with assorted fresh berries and whipped cream</description>
+        <calories>900</calories>
+    </food>
+    <food id="id_04" veggy="false">
+        <name>French Toast</name>
+        <price coin="dollar">4.50</price>
+        <description>Thick slices made from our homemade sourdough bread</description>
+        <calories>600</calories>
+    </food>
+    <food id="id_05" veggy="true">
+        <name>Homestyle Breakfast</name>
+        <price coin="euro">6.95</price>
+        <description>Two eggs, bacon or sausage, toast, and our ever-popular hash browns</description>
+        <calories>950</calories>
+    </food>
+</menu>
