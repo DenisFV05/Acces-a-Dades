@@ -1,5 +1,10 @@
 package com.project;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.util.List;
+
 public class PR115cp {
 
     public static void main(String[] args) {
@@ -20,5 +25,11 @@ public class PR115cp {
 
     // Mètode per copiar un arxiu de text de l'origen al destí
     public static void copiarArxiu(String rutaOrigen, String rutaDesti) {
+        Path origen = Paths.get(rutaOrigen);
+        Path desti = Paths.get(rutaDesti);
+        // Verificar si existe
+        if (!Files.exists(origen) || !Files.isRegularFile(origen)) {
+            System.out.println("Error");
+        }
     }
 }
