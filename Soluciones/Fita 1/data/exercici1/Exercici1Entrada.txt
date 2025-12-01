@@ -1,0 +1,10 @@
+1. Escriu codi clar i llegible: Utilitza noms de variables i funcions descriptius que expliquin el seu propòsit. Evita l'ús de noms genèrics com "a", "x" o "temp".
+2. Comenta el teu codi amb mesura: Els comentaris han de complementar el codi, no repetir-lo. Explica el "per què" i no el "què" en els comentaris.
+3. Utilitza la indentació consistent: Mantén una estructura consistent d'indentació per millorar la llegibilitat i mantenibilitat del codi.
+4. Aplica el principi DRY (Don't Repeat Yourself): Evita repetir codi i intenta reutilitzar funcions i mòduls quan sigui possible.
+5. Escriu proves unitàries: Testeja el teu codi amb proves unitàries per assegurar que cada part funcioni com s'espera i per facilitar el manteniment en el futur.
+6. Gestió d'errors adequada: Utilitza excepcions i gestiona els errors de manera que el programa pugui fallar de forma controlada i informativa.
+7. Documenta el teu codi: Proporciona documentació clara i detallada de les classes i mètodes, de manera que altres desenvolupadors puguin entendre i utilitzar el teu codi fàcilment.
+8. Evita funcions massa llargues: Divideix les funcions grans en funcions més petites amb una sola responsabilitat per facilitar el testeig i manteniment.
+9. Utilitza control de versions: Emmagatzema i controla les versions del codi amb eines com Git per fer seguiment dels canvis i col·laborar amb altres desenvolupadors.
+10. Refactoritza el codi quan sigui necessari: No tinguis por de millorar el codi existent per fer-lo més eficient, clar i mantenible. 
