@@ -1,0 +1,1 @@
+He usado mvn compile exec:java -Dexec.mainClass="cat.iesesteveterradas.PR210Honor" para ejecutar, el run.sh no me iba
