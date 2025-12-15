@@ -1,0 +1,51 @@
+package com.project;
+
+import java.util.Set;
+
+public class Ciutat {
+    private long ciutatId;
+    private String nom;
+    private String pais;
+    private int poblacio;
+    
+    // Relació lògica amb ciutadans
+    private Set<Ciutada> ciutadans;
+
+    public Ciutat() { }
+
+    public Ciutat(String nom, String pais, int poblacio) {
+        this.nom = nom;
+        this.pais = pais;
+        this.poblacio = poblacio;
+    }
+
+    public long getCiutatId() { return ciutatId; }
+    public void setCiutatId(long ciutatId) { this.ciutatId = ciutatId; }
+
+    public String getNom() { return nom; }
+    public void setNom(String nom) { this.nom = nom; }
+
+    public String getPais() { return pais; }
+    public void setPais(String pais) { this.pais = pais; }
+
+    public int getPoblacio() { return poblacio; }
+    public void setPoblacio(int poblacio) { this.poblacio = poblacio; }
+
+    public Set<Ciutada> getCiutadans() { return ciutadans; }
+    public void setCiutadans(Set<Ciutada> ciutadans) { this.ciutadans = ciutadans; }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(nom).append(" (").append(pais).append("), Població: ").append(poblacio).append(", Ciutadans: ");
+        if (ciutadans != null && !ciutadans.isEmpty()) {
+            for (Ciutada c : ciutadans) {
+                sb.append(c.getNom()).append(" ").append(c.getCognom()).append(" | ");
+            }
+            sb.setLength(sb.length() - 3); // eliminar el último " | "
+        } else {
+            sb.append("[]");
+        }
+        return sb.toString();
+    }
+}

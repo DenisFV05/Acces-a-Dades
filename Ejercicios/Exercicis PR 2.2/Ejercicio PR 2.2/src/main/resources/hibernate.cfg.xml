@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+      "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+      "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- Conexión a SQLite -->
+        <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
+        <property name="hibernate.connection.url">jdbc:sqlite:./data/database.db</property>
+        <property name="hibernate.dialect">org.hibernate.community.dialect.SQLiteDialect</property>
+
+        <!-- Mostrar SQL -->
+        <property name="hibernate.show_sql">true</property>
+
+        <!-- Crear tablas automáticamente -->
+        <property name="hibernate.hbm2ddl.auto">create</property>
+
+        <!-- Mapeos de clases -->
+        <mapping resource="Ciutat.hbm.xml"/>
+        <mapping resource="Ciutada.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>
