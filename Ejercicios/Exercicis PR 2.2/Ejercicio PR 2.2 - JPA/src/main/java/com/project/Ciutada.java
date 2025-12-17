@@ -3,23 +3,23 @@ package com.project;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "CIUTADA")
+@Table(name = "ciutada")
 public class Ciutada {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CIUTADA_ID")
-    private Long id;
+    private long ciutadaId;
 
     private String nom;
     private String cognom;
     private int edat;
 
+    // Relación hacia la ciudad (opcional para este ejercicio)
     @ManyToOne
-    @JoinColumn(name = "CIUTAT_ID")
+    @JoinColumn(name = "ciutat_id")
     private Ciutat ciutat;
 
-    public Ciutada() {}
+    public Ciutada() { }
 
     public Ciutada(String nom, String cognom, int edat) {
         this.nom = nom;
@@ -27,12 +27,16 @@ public class Ciutada {
         this.edat = edat;
     }
 
-    // getters y setters
-    public Long getId() { return id; }
+    // Getters y Setters
+    public long getCiutadaId() { return ciutadaId; }
+    public void setCiutadaId(long ciutadaId) { this.ciutadaId = ciutadaId; }
+
     public String getNom() { return nom; }
     public void setNom(String nom) { this.nom = nom; }
+
     public String getCognom() { return cognom; }
     public void setCognom(String cognom) { this.cognom = cognom; }
+
     public int getEdat() { return edat; }
     public void setEdat(int edat) { this.edat = edat; }
 
