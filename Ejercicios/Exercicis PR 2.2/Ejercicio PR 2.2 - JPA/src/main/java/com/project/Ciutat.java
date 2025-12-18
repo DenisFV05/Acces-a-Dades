@@ -15,7 +15,7 @@ public class Ciutat {
     private String pais;
     private int poblacio;
 
-    @OneToMany(mappedBy = "ciutat", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "ciutat", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Ciutada> ciutadans;
 
     public Ciutat() { }
