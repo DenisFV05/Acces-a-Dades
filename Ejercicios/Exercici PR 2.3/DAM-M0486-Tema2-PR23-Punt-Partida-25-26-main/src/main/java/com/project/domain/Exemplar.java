@@ -25,7 +25,7 @@ public class Exemplar implements Serializable {
 
     // TODO 4: Relació ManyToOne amb Llibre
     // @JoinColumn(name = "llibre_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "llibre_id", nullable = false)
     private Llibre llibre;
 
@@ -36,7 +36,7 @@ public class Exemplar implements Serializable {
     private Biblioteca biblioteca;
 
     // TODO 6: Relació OneToMany amb Prestec (historial)
-    @OneToMany(mappedBy = "exemplar", cascade = CascadeType.all, orphanRemoval = true)
+    @OneToMany(mappedBy = "exemplar", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Prestec> historialPrestecs = new HashSet<>();
 
     public Exemplar() {}

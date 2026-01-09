@@ -17,10 +17,10 @@ public class Prestec implements Serializable {
     private Long prestecId;
 
     // TODO 3: Relacions @ManyToOne (cap a Exemplar i Persona)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "exemplar_id", nullable = false)
     private Exemplar exemplar;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "persona_id", nullable = false)
     private Persona persona;
     @Column(nullable = false)
