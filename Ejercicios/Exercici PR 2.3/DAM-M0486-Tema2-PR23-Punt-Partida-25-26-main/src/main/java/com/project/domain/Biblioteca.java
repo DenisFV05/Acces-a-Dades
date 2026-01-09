@@ -6,13 +6,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 // TODO 1: @Entity
+@Entity
+@Table(name = "biblioteca")
 public class Biblioteca implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     // TODO 2: @Id
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bibliotecaId;
-
+    @Column(nullable = false)
     private String nom;
     private String ciutat;
     private String adreca;
@@ -20,6 +24,7 @@ public class Biblioteca implements Serializable {
     private String email;
 
     // TODO 3: @OneToMany cap a Exemplar
+    @OneToMany(mappedBy = "biblioteca", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Exemplar> exemplars = new HashSet<>();
 
     public Biblioteca() {}

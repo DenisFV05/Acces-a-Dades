@@ -6,27 +6,37 @@ import java.util.HashSet;
 import java.util.Set;
 
 // TODO 1: @Entity i @Table
+@Entity
+@Table(name = "exemplar")
 public class Exemplar implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     // TODO 2: @Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long exemplarId;
 
     // TODO 3: @Column amb unique = true
+    @Column(unique = true, nullable = false)
     private String codiBarres;
-
+    @Column(nullable = false)
     private boolean disponible;
 
     // TODO 4: Relació ManyToOne amb Llibre
     // @JoinColumn(name = "llibre_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "llibre_id", nullable = false)
     private Llibre llibre;
 
     // TODO 5: Relació ManyToOne amb Biblioteca
     // @JoinColumn(name = "biblioteca_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "biblioteca_id", nullable = false)
     private Biblioteca biblioteca;
 
     // TODO 6: Relació OneToMany amb Prestec (historial)
+    @OneToMany(mappedBy = "exemplar", cascade = CascadeType.all, orphanRemoval = true)
     private Set<Prestec> historialPrestecs = new HashSet<>();
 
     public Exemplar() {}
