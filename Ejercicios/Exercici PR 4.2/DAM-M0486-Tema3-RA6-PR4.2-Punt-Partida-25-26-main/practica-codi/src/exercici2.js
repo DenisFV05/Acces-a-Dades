@@ -100,20 +100,53 @@ async function main() {
             console.log(`Codi: ${game.appid}, Nom: ${game.name}`);
         }
 
-        // Iterem per les primeres 10 reviews i analitzem el sentiment
-        console.log('\n=== Anàlisi de Sentiment de Reviews ===');
-        const reviewsToAnalyze = reviews.slice(0, 2);
-        
-        for (const review of reviewsToAnalyze) {
-            console.log(`\nProcessant review: ${review.id}`);
-            const sentiment = await analyzeSentiment(review.content);
-            console.log(`Review ID: ${review.id}`);
-            console.log(`Joc ID: ${review.app_id}`);
-            console.log(`Contingut: ${review.content.substring(0, 100)}...`);
-            console.log(`Sentiment (Ollama): ${sentiment}`);
-            console.log('------------------------');
+        // Només els dos primers jocs
+        const selectedGames = games.slice(0, 2);
+
+        const results = [];
+
+        for (const game of selectedGames) {
+
+            // Reviews d'aquest joc
+            const gameReviews = reviews
+                .filter(r => r.app_id === game.appid)
+                .slice(0, 2);
+
+            const stats = {
+                positive: 0,
+                negative: 0,
+                neutral: 0,
+                error: 0
+            };
+
+            for (const review of gameReviews) {
+                const sentiment = await analyzeSentiment(review.content);
+
+                if (sentiment === 'positive') stats.positive++;
+                else if (sentiment === 'negative') stats.negative++;
+                else if (sentiment === 'neutral') stats.neutral++;
+                else stats.error++;
+            }
+
+            results.push({
+                appid: game.appid,
+                name: game.name,
+                statistics: stats
+            });
         }
-        console.log(`\nNOMÉS AVALUEM LES DUES PRIMERES REVIEWS`);
+
+        const output = {
+            timestamp: new Date().toISOString(),
+            games: results
+        };
+
+        const outputPath = path.join(__dirname, dataPath, 'exercici2_resposta.json');
+
+        fs.writeFileSync(outputPath, JSON.stringify(output, null, 2));
+
+        console.log('Resultat guardat a:', outputPath);
+
+
      } catch (error) {
         console.error('Error durant l\'execució:', error.message);
     }

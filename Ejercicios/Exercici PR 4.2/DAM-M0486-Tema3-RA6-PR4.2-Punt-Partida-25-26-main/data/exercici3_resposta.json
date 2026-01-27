@@ -1,0 +1,47 @@
+{
+  "analisis": [
+    {
+      "imatge": {
+        "nom_fitxer": "03d7fc0888.jpg"
+      },
+      "analisi": {
+        "nom_comu": "Antílope de Przewalski",
+        "nom_cientific": "Equus przewalskii",
+        "taxonomia": {
+          "classe": "Mammalia",
+          "ordre": "Perissodactyla",
+          "familia": "Equidae"
+        },
+        "habitat": {
+          "tipus": "Terrestre",
+          "regioGeografica": "Àsia Central",
+          "clima": "Continental"
+        },
+        "dieta": {
+          "tipus": "Herbívora",
+          "aliments_principals": "Hierbas y pastos"
+        },
+        "caracteristiques_fisiques": {
+          "mida": {
+            "altura_mitjana_cm": 100,
+            "pes_mitja_kg": 40
+          },
+          "colors_predominants": "Blanc i marró",
+          "trets_distintius": [
+            "Orejas largas",
+            "Cuerpo delgado",
+            "Pata delgada"
+          ]
+        },
+        "estat_conservacio": {
+          "classificacio_IUCN": "En peligro",
+          "amenaces_principals": [
+            "Persecución por parte de cazadores",
+            "Perdida de hábitat",
+            "Introducción de especies invasoras"
+          ]
+        }
+      }
+    }
+  ]
+}

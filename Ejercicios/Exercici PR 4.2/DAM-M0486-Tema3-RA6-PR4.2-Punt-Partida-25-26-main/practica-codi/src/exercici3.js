@@ -138,7 +138,19 @@ async function main() {
                     console.log(`Mida de la imatge en Base64: ${base64String.length} caràcters`);
                     
                     // Definim el prompt per a Ollama
-                    const prompt = "Identifica quin tipus d'animal apareix a la imatge";
+                    const prompt = `
+                        Proporciona un analisis detallat del animal a la imatge en format JSON. 
+                        Inclou la següent informació:
+                        - nom_comu
+                        - nom_cientific (si es conegut)
+                        - taxonomia: classe, ordre, familia
+                        - habitat: tipus, regioGeografica, clima
+                        - dieta: tipus, aliments_principals
+                        - caracteristiques_fisiques: mida (altura_mitjana_cm, pes_mitja_kg), colors_predominants, trets_distintius
+                        - estat_conservacio: classificacio_IUCN, amenaces_principals
+                        Retorna nomes JSON valid.
+                        `;
+
                     console.log('Prompt:', prompt);
                     
                     // Fem la petició a Ollama amb la imatge i el prompt
@@ -146,10 +158,37 @@ async function main() {
                     
                     // Processem la resposta d'Ollama
                     if (response) {
-                        // Si hem rebut resposta, la mostrem
                         console.log(`\nResposta d'Ollama per ${imageFile}:`);
                         console.log(response);
-                    } else {
+
+                        // Limpiar respuesta de Ollama de ```json ``` si los tiene
+                        let cleaned = response.trim()
+                                            .replace(/^```json\s*/, '')  // quitar ```json al inicio
+                                            .replace(/```$/, '');        // quitar ``` al final
+
+                        let parsed;
+                        try {
+                            parsed = JSON.parse(cleaned);
+                        } catch (err) {
+                            console.error('Error parseando JSON de Ollama:', err.message);
+                            parsed = null;
+                        }
+
+                        if (parsed) {
+                            const output = {
+                                analisis: [
+                                    {
+                                        imatge: { nom_fitxer: imageFile },
+                                        analisi: parsed
+                                    }
+                                ]
+                            };
+
+                            const outputPath = path.join(__dirname, process.env.DATA_PATH, 'exercici3_resposta.json');
+                            await fs.writeFile(outputPath, JSON.stringify(output, null, 2));
+                            console.log('Resultat guardat a:', outputPath);
+                        }
+                    }   else {
                         // Si no hem rebut resposta vàlida, loguegem l'error
                         console.error(`\nNo s'ha rebut resposta vàlida per ${imageFile}`);
                     }
