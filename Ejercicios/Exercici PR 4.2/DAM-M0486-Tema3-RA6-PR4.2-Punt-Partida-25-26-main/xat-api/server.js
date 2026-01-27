@@ -13,6 +13,9 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpecs = require('./src/config/swagger');
 const { sequelize } = require('./src/config/database');
+// forzar definición del modelo antes de sync
+require('./src/models/SentimentAnalysis');
+
 const errorHandler = require('./src/middleware/errorHandler');
 const chatRoutes = require('./src/routes/chatRoutes');
 const { logger, expressLogger } = require('./src/config/logger');

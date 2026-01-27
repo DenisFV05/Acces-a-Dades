@@ -385,9 +385,92 @@ const getConversation = async (req, res, next) => {
     }
 };
 
+const fetch = require('node-fetch'); // si no está disponible, instala: npm i node-fetch@2
+const SentimentAnalysis = require('../models/SentimentAnalysis');
+
+async function getSentimentFromOllama(text) {
+  try {
+    const res = await fetch(`${process.env.CHAT_API_OLLAMA_URL}/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: process.env.CHAT_API_OLLAMA_MODEL_TEXT,
+        prompt: `Analyze the sentiment of the following text and respond with one word: positive, negative, or neutral. Return only the single word.\n\nText: "${text}"`,
+        stream: false
+      })
+    });
+
+    if (!res.ok) {
+      throw new Error(`Ollama HTTP ${res.status} ${res.statusText}`);
+    }
+
+    const data = await res.json();
+
+    // Intentamos extraer la respuesta de distintas formas:
+    const raw = data.response || (data?.choices && data.choices[0]?.content) || null;
+    if (!raw) {
+      logger.warn('Respuesta de Ollama sin campo esperado', { data });
+      return { sentiment: 'error', raw };
+    }
+
+    const sentiment = String(raw).trim().toLowerCase();
+    if (['positive','negative','neutral'].includes(sentiment)) {
+      return { sentiment, raw };
+    } else {
+      // Si la respuesta contiene texto extra (ej. "Sentiment: positive"), intentar extraer la palabra
+      const match = sentiment.match(/(positive|negative|neutral)/);
+      if (match) return { sentiment: match[1], raw };
+      return { sentiment: 'error', raw };
+    }
+  } catch (err) {
+    logger.error('Error llamando a Ollama', { error: err.message });
+    return { sentiment: 'error', raw: err.message };
+  }
+}
+
+const analyzeSentimentController = async (req, res, next) => {
+  try {
+    const { text, userId = null, gameId = null } = req.body;
+    if (!text || typeof text !== 'string' || !text.trim()) {
+      return res.status(400).json({ error: 'El campo "text" es obligatorio y debe ser un string.' });
+    }
+
+    // Llamada a Ollama
+    const result = await getSentimentFromOllama(text);
+    const sentiment = result.sentiment || 'error';
+
+    // Guardar en DB
+    try {
+      await SentimentAnalysis.create({
+        text,
+        sentiment,
+        meta: { raw: result.raw, userId, gameId }
+      });
+    } catch (dbErr) {
+      logger.error('Error guardando SentimentAnalysis en BD', { error: dbErr.message });
+      // No interrumpimos la respuesta al cliente, pero lo logeamos
+    }
+
+    // Logger a fichero/inmediato
+    logger.info('Sentiment analysis', { text: text.slice(0,200), sentiment, userId, gameId });
+
+    // Responder al cliente
+    return res.json({
+      text,
+      sentiment,
+      timestamp: new Date().toISOString()
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.analyzeSentimentController = analyzeSentimentController;
+
 // Exportació de les funcions públiques
 module.exports = {
     registerPrompt,
     getConversation,
-    listOllamaModels
+    listOllamaModels,
+    analyzeSentimentController
 };
