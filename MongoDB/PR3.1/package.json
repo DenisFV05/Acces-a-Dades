@@ -1,0 +1,21 @@
+{
+  "name": "pr3-1-mongodb-xml",
+  "version": "1.0.0",
+  "description": "PR3.1 - Inserció i consulta de dades Stack Exchange a MongoDB",
+  "main": "exercici1.js",
+  "scripts": {
+    "exercici1": "node exercici1.js",
+    "exercici2": "node exercici2.js"
+  },
+  "keywords": ["mongodb", "xml", "stackexchange", "nodejs"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "he": "^1.2.0",
+    "mongodb": "^6.3.0",
+    "pdfkit": "^0.15.0",
+    "winston": "^3.11.0",
+    "xml2js": "^0.6.2"
+  }
+}
